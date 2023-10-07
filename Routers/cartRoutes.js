@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const cartController_1 = require("../controller/Cart/cartController");
+const findToCartMiddleware_1 = require("../controller/Cart/midleware/findToCartMiddleware");
+const isValidRefreshToken_1 = require("../controller/Base Middleware/isValidRefreshToken");
+const updateAccessToken_1 = require("../controller/Base Middleware/updateAccessToken");
+const cartRoutes = (0, express_1.Router)();
+cartRoutes.post('/user/addCart', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, cartController_1.addToCart);
+cartRoutes.get('/user/getCartUser', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, cartController_1.getProductsCart);
+cartRoutes.patch('/user/cart/variation', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, findToCartMiddleware_1.findToCartMiddleware, cartController_1.variationProductCart);
+cartRoutes.delete('/user/cart/deleteProduct', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, cartController_1.deleteProductCart);
+exports.default = cartRoutes;

@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const findFavoriteMiddleware_1 = require("../controller/Favorite/findFavoriteMiddleware");
+const FavoriteController_1 = require("../controller/Favorite/FavoriteController");
+const isValidRefreshToken_1 = require("../controller/Base Middleware/isValidRefreshToken");
+const updateAccessToken_1 = require("../controller/Base Middleware/updateAccessToken");
+const favoriteRoutes = (0, express_1.Router)();
+favoriteRoutes.get('/product/getAllFavorite', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, FavoriteController_1.getAllFavoriteProducts);
+favoriteRoutes.post('/product/addFavorite', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, findFavoriteMiddleware_1.findFavoriteMiddleware, FavoriteController_1.addFavoriteProduct);
+favoriteRoutes.delete('/product/deleteFavorite', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, FavoriteController_1.deleteFavoriteProduct);
+exports.default = favoriteRoutes;

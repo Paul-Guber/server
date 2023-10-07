@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ChoiceDeliveryMiddleware_1 = require("../controller/Order/middleware/ChoiceDeliveryMiddleware");
+const orderController_1 = require("../controller/Order/orderController");
+const isValidRefreshToken_1 = require("../controller/Base Middleware/isValidRefreshToken");
+const updateAccessToken_1 = require("../controller/Base Middleware/updateAccessToken");
+const orderRoutes = (0, express_1.Router)();
+orderRoutes.post('/user/order/addOrder', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, ChoiceDeliveryMiddleware_1.ChoiceDeliveryMiddleware, orderController_1.addOrderUser);
+orderRoutes.get('/user/order/getOrder', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, orderController_1.getOrders);
+orderRoutes.get('/user/order/getOrderProducts', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, orderController_1.getOrderProducts);
+exports.default = orderRoutes;

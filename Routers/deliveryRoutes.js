@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const deliveryController_1 = require("../controller/Delivery/deliveryController");
+const FindByDeliveryBoolean_1 = require("../controller/Delivery/Middleware/FindByDeliveryBoolean");
+const isValidRefreshToken_1 = require("../controller/Base Middleware/isValidRefreshToken");
+const updateAccessToken_1 = require("../controller/Base Middleware/updateAccessToken");
+const deliveryRoutes = (0, express_1.Router)();
+deliveryRoutes.get('/order/getDeliveryAccount', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, deliveryController_1.getDeliveryAccount);
+deliveryRoutes.get('/order/getDeliveryInfo', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, deliveryController_1.getDeliveryInfo);
+deliveryRoutes.post('/order/addDeliveryUserAccount', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, deliveryController_1.addDeliveryAccount);
+deliveryRoutes.post('/order/addDeliveryUserInfo', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, deliveryController_1.addDeliveryInfo);
+deliveryRoutes.put('/order/updateDeliveryShipping', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, FindByDeliveryBoolean_1.FindByDeliveryBoolean, deliveryController_1.updateDeliveryBoolean);
+deliveryRoutes.delete('/order/removeDelivery', isValidRefreshToken_1.isValidRefreshToken, updateAccessToken_1.updateAccessToken, deliveryController_1.deleteDelivery);
+exports.default = deliveryRoutes;
